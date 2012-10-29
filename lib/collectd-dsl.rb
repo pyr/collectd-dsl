@@ -1,6 +1,6 @@
 module Collectd
   class DSL
-    VERSION = "0.3.0"
+    VERSION = "0.3.5"
 
     def initialize(&block)
       @directives = []
