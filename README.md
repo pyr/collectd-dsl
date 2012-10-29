@@ -18,18 +18,33 @@ Or install it yourself as:
 
 ## Usage
 
+Note that the collectd-dsl converts snake-case to CamelCase
+
 ```ruby
 config = Collectd::DSL.parse do
-  LoadPlugin :redis
-  LoadPlugin :java
-  LoadPlugin :disk
+  load_plugin :redis
+  load_plugin :java
+  load_plugin :disk
   
-  Plugin :disk do
-    Disk "/dev/sda"
-	Disk "/dev/sdb"
-	IgnoreSelected "false"
+  plugin :disk do
+    disk "/dev/sda"
+	disk "/dev/sdb"
+	ignore_selected "false"
   end
 end
+
+```
+
+The following will be output
+```
+LoadPlugin redis
+LoadPlugin java
+LoadPlugin disk
+<Plugin disk>
+	Disk "/dev/sda"
+	Disk "/dev/sdb"
+	IgnoreSelected "false"
+</Plugin>
 
 ```
 

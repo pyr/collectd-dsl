@@ -4,35 +4,35 @@ describe Collectd::DSL do
   context "simple options" do
     it "no args given" do
       config = Collectd::DSL.parse do
-        LoadPlugin :disk
+        load_plugin :disk
       end
       config.should == "LoadPlugin disk\n"
     end
     it "one arg given" do
       config = Collectd::DSL.parse do
-        LoadPlugin :disk, '/dev/sda'
+        load_plugin :disk, '/dev/sda'
       end
-      config.should == "LoadPlugin disk /dev/sda\n"
+      config.should == "LoadPlugin disk \"/dev/sda\"\n"
     end
     it "section" do
       config = Collectd::DSL.parse do
-        Plugin :disk do
-          Disk '/dev/sda'
+        plugin :disk do
+          disk '/dev/sda'
         end
       end
-      config.should == "<Plugin disk>\n\tDisk /dev/sda\n</Plugin>\n"
+      config.should == "<Plugin disk>\n\tDisk \"/dev/sda\"\n</Plugin>\n"
     end
     it "section with no args" do
       config = Collectd::DSL.parse do
-        Plugin do
-          Disk '/dev/sda'
+        plugin do
+          disk '/dev/sda'
         end
       end
-      config.should == "<Plugin>\n\tDisk /dev/sda\n</Plugin>\n"
+      config.should == "<Plugin>\n\tDisk \"/dev/sda\"\n</Plugin>\n"
     end
     it "empty section" do
       config = Collectd::DSL.parse do
-        Plugin do
+        plugin do
         end
       end
       config.should == "<Plugin>\n</Plugin>\n"
